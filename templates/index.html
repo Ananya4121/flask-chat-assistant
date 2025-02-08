@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Assistant</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        input {
+            width: 400px;
+            padding: 10px;
+            margin-right: 10px;
+        }
+        button {
+            padding: 10px;
+            background-color: blue;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        #response {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Chat with Your AI Assistant</h1>
+    <input type="text" id="queryInput" placeholder="Ask a question..." />
+    <button onclick="sendQuery()">Ask</button>
+    <p id="response">Response will appear here...</p>
+
+    <script>
+        async function sendQuery() {
+            const query = document.getElementById("queryInput").value;
+            const responseElement = document.getElementById("response");
+
+            const response = await fetch("https://your-app-name.onrender.com/chat", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ query: query })
+            });
+
+            const data = await response.json();
+            responseElement.innerText = "Response: " + JSON.stringify(data.response);
+        }
+    </script>
+</body>
+</html>
